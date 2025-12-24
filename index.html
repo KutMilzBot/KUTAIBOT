@@ -3541,6 +3541,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (btn) btn.addEventListener("click", attemptUnlock);
+    // iOS/Safari extra: ensure Unlock always fires
+    if (btn){
+      btn.onclick = attemptUnlock;
+      btn.addEventListener("touchend", (e)=>{ e.preventDefault(); attemptUnlock(); }, {passive:false});
+      btn.addEventListener("pointerup", (e)=>{ try{ e.preventDefault(); }catch(_){ } attemptUnlock(); });
+    }
 
     // Enter key unlock
     [tIn, pIn].forEach(el => {
