@@ -344,199 +344,10 @@ button, .btn{
   box-shadow: 0 14px 26px rgba(239,68,68,0.18) !important;
 }
 
-/* =========================
-   KutMilzAi Lock Overlay
-   (UI-only layer; does not change bot logic)
-========================= */
-body.km-locked { overflow: hidden; }
-body.km-locked #app-root{
-  pointer-events: none;
-  user-select: none;
-  filter: blur(2px);
-}
-.km-lock-overlay{
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
-
-  /* Light-blue lock screen with bot-name watermark (iOS/Android/Web friendly) */
-  background: linear-gradient(180deg, #d9f2ff 0%, #bfe8ff 40%, #9fd8ff 100%);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-.km-lock-overlay::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity: 0.28;
-
-  /* SVG text pattern watermark */
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22420%22%20height=%22240%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3Cpattern%20id=%22p%22%20width=%22420%22%20height=%22240%22%20patternUnits=%22userSpaceOnUse%22%3E%0A%20%20%20%20%20%20%3Ctext%20x=%2220%22%20y=%2280%22%20font-family=%22Arial%22%20font-size=%2228%22%20font-weight=%22700%22%20fill=%22%230b4a6f%22%20fill-opacity=%220.22%22%3EKUT%20MILZ%20TB%3C/text%3E%0A%20%20%20%20%20%20%3Ctext%20x=%2260%22%20y=%22150%22%20font-family=%22Arial%22%20font-size=%2228%22%20font-weight=%22700%22%20fill=%22%230b4a6f%22%20fill-opacity=%220.18%22%3EKUT%20MILZ%20TB%3C/text%3E%0A%20%20%20%20%20%20%3Ctext%20x=%22120%22%20y=%22220%22%20font-family=%22Arial%22%20font-size=%2228%22%20font-weight=%22700%22%20fill=%22%230b4a6f%22%20fill-opacity=%220.14%22%3EKUT%20MILZ%20TB%3C/text%3E%0A%20%20%20%20%3C/pattern%3E%0A%20%20%3C/defs%3E%0A%20%20%3Crect%20width=%22100%25%22%20height=%22100%25%22%20fill=%22url(%23p)%22/%3E%0A%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 420px 240px;
-}
-.km-lock-overlay::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(700px 400px at 15% 20%, rgba(255,255,255,0.70), transparent 60%),
-    radial-gradient(700px 400px at 85% 0%, rgba(255,255,255,0.55), transparent 60%),
-    radial-gradient(700px 450px at 50% 110%, rgba(255,255,255,0.45), transparent 60%);
-  mix-blend-mode: overlay;
-  opacity: 0.7;
-}
-.km-lock-card{ position: relative; z-index: 1; }
-
-.km-lock-card{
-  width: min(420px, 100%);
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  box-shadow: 0 24px 70px rgba(0,0,0,0.28);
-  overflow: hidden;
-}
-.km-lock-head{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 16px 12px 16px;
-  border-bottom: 1px solid #e5e7eb;
-}
-.km-lock-title{
-  font-weight: 900;
-  color: #111827;
-  letter-spacing: 0.2px;
-}
-.km-lock-close{
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
-  color: #9ca3af;
-  font-size: 22px;
-  line-height: 1;
-  cursor: not-allowed;
-}
-.km-lock-body{ padding: 16px; }
-.km-lock-field{ margin-bottom: 12px; }
-.km-lock-field label{
-  display: block;
-  font-size: 12px;
-  font-weight: 800;
-  color: #374151;
-  margin-bottom: 6px;
-}
-.km-lock-field input{
-  width: 100%;
-  padding: 12px 12px;
-  border-radius: 12px;
-  border: 1px solid #d1d5db;
-  background: #ffffff;
-  color: #111827;
-  font-size: 14px;
-}
-.km-lock-field input:focus{
-  outline: none;
-  border-color: #60a5fa;
-  box-shadow: 0 0 0 4px rgba(59,130,246,0.18);
-}
-.km-lock-row{
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.km-lock-row input{ flex: 1; }
-.km-lock-show{
-  flex: 0 0 auto;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
-  font-weight: 900;
-  color: #111827;
-}
-.km-lock-check{
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  font-size: 13px;
-  color: #374151;
-  font-weight: 700;
-  margin: 6px 0 14px 0;
-}
-.km-lock-unlock{
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 0;
-  background: #3b82f6;
-  color: #ffffff;
-  font-weight: 900;
-  box-shadow: 0 14px 26px rgba(59,130,246,0.22);
-}
-.km-lock-error{
-  margin-top: 12px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(239,68,68,0.35);
-  background: rgba(239,68,68,0.08);
-  color: #b91c1c;
-  font-weight: 900;
-  font-size: 13px;
-}
-.km-lock-error.hidden{ display:none; }
-
 </style>
 </head>
 
-<body class="km-locked">
-<!-- =========================
-     KutMilzAi Lock Overlay
-     Blocks access until correct credentials are entered
-========================= -->
-<div id="km-lock-overlay" class="km-lock-overlay" role="dialog" aria-modal="true" aria-label="Locked - Kut Milz TB">
-  <div class="km-lock-card">
-    <div class="km-lock-head">
-      <div class="km-lock-title">KUT MILZ TB</div>
-      <!-- X is intentionally disabled: cannot bypass lock -->
-      <button id="km-lock-close" class="km-lock-close" type="button" aria-label="Close" disabled>&times;</button>
-    </div>
-
-    <div class="km-lock-body">
-      <div class="km-lock-field">
-        <label for="km-pass-token">Millz Pass Token</label>
-        <input id="km-pass-token" type="text" inputmode="email" autocomplete="off"
-               placeholder="Enter Millz Pass Token">
-      </div>
-
-      <div class="km-lock-field">
-        <label for="km-pass-pw">Password</label>
-        <div class="km-lock-row">
-          <input id="km-pass-pw" type="password" autocomplete="off"
-                 placeholder="Enter password">
-          <button id="km-pass-show" class="km-lock-show" type="button">Show</button>
-        </div>
-      </div>
-
-      <label class="km-lock-check">
-        <input id="km-remember" type="checkbox">
-        Remember me
-      </label>
-
-      <button id="km-unlock-btn" class="km-lock-unlock" type="button">Unlock</button>
-
-      <div id="km-lock-error" class="km-lock-error hidden" aria-live="polite">Access Declined.</div>
-    </div>
-  </div>
-</div>
+<body>
 <div class="container-wrapper" id="app-root">
   <h1 class="text-3xl text-center mb-6 brand-title">KUT MILZ TB</h1>
 
@@ -602,7 +413,7 @@ body.km-locked #app-root{
           </div>
 
           <div id="account-warning" class="hidden mt-3 p-3 rounded-lg border border-red-500/40 bg-red-500/10 text-sm text-red-200">
-            ÃÂ¢ÃÂÃÂ ÃÂ¯ÃÂ¸ÃÂ Symbol not available on this account. Use a Deriv <b>Derived/Synthetic (STD)</b> account for Volatility indices and Vol 1s.
+            ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ÃÂÃÂ¯ÃÂÃÂ¸ÃÂÃÂ Symbol not available on this account. Use a Deriv <b>Derived/Synthetic (STD)</b> account for Volatility indices and Vol 1s.
           </div>
         </div>
       </div>
@@ -720,7 +531,7 @@ body.km-locked #app-root{
       <!-- Clustering Detected Alert -->
       <div id="cluster-alert" class="card hidden border-yellow-500/40">
         <div class="flex items-start gap-3">
-          <div class="text-yellow-400 text-xl">ÃÂ¢ÃÂÃÂ ÃÂ¯ÃÂ¸ÃÂ</div>
+          <div class="text-yellow-400 text-xl">ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ÃÂÃÂ¯ÃÂÃÂ¸ÃÂÃÂ</div>
           <div>
             <div class="text-lg font-semibold text-yellow-300">Clustering Detected</div>
             <div id="cluster-text" class="text-sm text-slate-200 mt-1">
@@ -742,7 +553,7 @@ body.km-locked #app-root{
         </div>
         <div class="flex justify-between mt-2 text-xs text-slate-300">
           <div id="confidence-text">0%</div>
-          <div id="confidence-notes" class="text-slate-400">Waiting ticksÃÂ¢ÃÂÃÂ¦</div>
+          <div id="confidence-notes" class="text-slate-400">Waiting ticksÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¦</div>
         </div>
 
         <div class="mt-3 text-xs text-slate-400">
@@ -787,7 +598,7 @@ body.km-locked #app-root{
               </button>
             </div>
             <p class="text-xs text-slate-400 mt-2">
-              If symbol fails to stream, you may be on an account that doesnÃÂ¢ÃÂÃÂt allow it. Use a Derived/STD account for Volatility indices.
+              If symbol fails to stream, you may be on an account that doesnÃÂÃÂ¢ÃÂÃÂÃÂÃÂt allow it. Use a Derived/STD account for Volatility indices.
             </p>
           </div>
 
@@ -808,7 +619,7 @@ body.km-locked #app-root{
 
           <div class="md:col-span-2 flex items-center justify-between p-3 bg-slate-700/50 rounded-lg mt-1">
             <div class="flex items-center gap-3">
-              <div class="text-purple-300 text-xl">ÃÂ¢ÃÂÃÂ¡</div>
+              <div class="text-purple-300 text-xl">ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¡</div>
               <div>
                 <div class="font-semibold text-slate-200">Auto Trading</div>
                 <div class="text-xs text-slate-400">Enable to start automated trading based on current settings</div>
@@ -916,7 +727,7 @@ body.km-locked #app-root{
               <div class="col-span-2 flex items-center justify-between p-3 bg-slate-700/40 rounded-lg">
                 <div>
                   <div class="text-sm font-semibold text-slate-200">Accumulator Safe Mode</div>
-                  <div class="text-xs text-slate-400">Caps growth to <b>1â2%</b> and lets AI Guard block spike/chop.</div>
+                  <div class="text-xs text-slate-400">Caps growth to <b>1Ã¢ÂÂ2%</b> and lets AI Guard block spike/chop.</div>
                 </div>
                 <label class="relative inline-flex items-center cursor-pointer">
                   <input type="checkbox" id="accu-safe" class="sr-only peer" checked>
@@ -1044,14 +855,14 @@ body.km-locked #app-root{
 
             <button id="toggle-visibility-btn" class="p-3 text-slate-400 hover:text-sky-300 transition duration-150"
               type="button" title="Show Token">
-              ÃÂÃÂÃÂÃÂÃÂÃÂ°ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ
+              ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ°ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ
             </button>
           </div>
         </div>
 
         <div class="relative mb-3">
           <label for="start-password" class="block text-sm font-medium mb-1 text-slate-300">Start Password</label>
-          <input type="password" id="start-password" placeholder="Type password to start botÃÂ¢ÃÂÃÂ¦"
+          <input type="password" id="start-password" placeholder="Type password to start botÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¦"
             class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-slate-50 focus:ring-sky-500 focus:border-sky-500"
             autocomplete="off" />
           <p id="pw-error-message" class="mt-2 text-sm text-red-300 hidden">
@@ -1088,14 +899,14 @@ body.km-locked #app-root{
 
       <!-- Insights -->
       <div class="card">
-        <h2 class="text-xl font-semibold mb-4 text-emerald-400">Market Insights ÃÂ¢ÃÂÃÂ¨</h2>
+        <h2 class="text-xl font-semibold mb-4 text-emerald-400">Market Insights ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¨</h2>
 
         <div class="flex flex-col sm:flex-row gap-4 mb-4">
           <button id="analyze-market-btn" class="flex-1 py-2 rounded-lg font-bold transition duration-200 bg-emerald-700 hover:bg-emerald-800 text-white shadow-lg">
-            Analyze Market Sentiment ÃÂ¢ÃÂÃÂ¨
+            Analyze Market Sentiment ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¨
           </button>
           <button id="assess-risk-btn" class="flex-1 py-2 rounded-lg font-bold transition duration-200 bg-pink-700 hover:bg-pink-800 text-white shadow-lg">
-            Assess Strategy Risk ÃÂ¢ÃÂÃÂ¨
+            Assess Strategy Risk ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¨
           </button>
         </div>
 
@@ -1108,7 +919,7 @@ body.km-locked #app-root{
         </div>
 
         <div class="mt-3 text-xs text-slate-400">
-          Note: This is NOT financial advice. Signals can be wrong ÃÂ¢ÃÂÃÂ always risk-manage.
+          Note: This is NOT financial advice. Signals can be wrong ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ always risk-manage.
         </div>
       </div>
 
@@ -1133,8 +944,8 @@ function logLine(msg){
   }
 }
 
-// ÃÂ¢ÃÂÃ
- Transaction log lines: CLOSED | SYMBOL | CALL/PUT | +/-value
+// ÃÂÃÂ¢ÃÂÃÂÃÂ
+// Transaction log lines: CLOSED | SYMBOL | CALL/PUT | +/-value
 function txLogLine(msg){
   const t = new Date().toLocaleTimeString();
   const line = `[${t}] ${msg}`;
@@ -1151,9 +962,6 @@ function txLogLine(msg){
 const API_URL = 'wss://ws.binaryws.com/websockets/v3?app_id=1089';
 const REQUIRED_PASSWORD = "$1977";
 
-// KutMilzAi lock overlay credentials
-const KM_LOCK_TOKEN = "Amarie@millzbot";
-const KM_LOCK_PASSWORD = "$1977";
 
 
 /* =========================================================
@@ -1179,12 +987,12 @@ const appState = {
 
   currentBalance:0,
 
-  // ÃÂ¢ÃÂÃ
- Session tracking
+  // ÃÂÃÂ¢ÃÂÃÂÃÂ
+// Session tracking
   sessionProfit:0,     // net P/L
   sessionLoss:0,       // absolute loss total
-  // ÃÂÃÂ¢ÃÂÃÂÃÂÃ
- Session limits (extra safety layer)
+  // ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂ
+// Session limits (extra safety layer)
   sessionTrades: 0,
   sessionWins: 0,
   sessionLosses: 0,
@@ -1202,8 +1010,8 @@ const appState = {
   is_sellable:0,
   isSelling:false,
 
-  // ÃÂ¢ÃÂÃ
- Track last trade meta so TX log shows CALL/PUT + symbol
+  // ÃÂÃÂ¢ÃÂÃÂÃÂ
+// Track last trade meta so TX log shows CALL/PUT + symbol
   currentDirection:null,       // "CALL" / "PUT"
   currentSymbolAtEntry:null,   // e.g., "R_100"
 
@@ -1253,12 +1061,12 @@ const appState = {
     lastOHLC:null,
     hasTick:false,
 
-    /* ÃÂ¢ÃÂÃ
+    /* ÃÂÃÂ¢ÃÂÃÂÃÂ
  PRICE ACTION: closed 1s candle history (used by filter) */
     closedCandles: []  // {time, open, high, low, close}
   },
 
-  // â Feature guards (added, default ON but safe)
+  // Ã¢ÂÂ Feature guards (added, default ON but safe)
   volGuard:{
     enabled:true,
     lookbackCandles:20,
@@ -1289,12 +1097,12 @@ const appState = {
     beAt:0.12,           // move to BE after +$0.12
     beBuffer:0.01        // keep +$0.01 cushion
   },
-  // â Accumulator (True ACCU) - optional scrape mode
+  // Ã¢ÂÂ Accumulator (True ACCU) - optional scrape mode
   accu:{
     enabled:false,
     growthRate:0.01,      // 1%..5% (0.01..0.05)
     takeProfit:null,      // profit amount ($) for server-side auto-sell (limit_order.take_profit)
-    safe:true             // caps growth to 1â2% when ON
+    safe:true             // caps growth to 1Ã¢ÂÂ2% when ON
   },
 
 
@@ -1516,8 +1324,8 @@ const aiLayer = {
       return { allow:false, reason:`Low Confidence (${conf}% < ${minC}%)`, cooldownMs: (this.regime === "DRAWDOWN") ? 90000 : 20000 };
     }
 
-    // Allow ÃÂ¢ÃÂÃÂ record only on FINAL stage to avoid double-count
-    this.perf.allowCount += 1;
+    // Allow ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ record only on FINAL stage to avoid double-count
+// this.perf.allowCount += 1;
     if (ctx?.stage === "BEFORE_BUY"){
       this.perf.tradeTimes.push(now);
       this._pruneOldTradeTimes(now);
@@ -1548,7 +1356,7 @@ function updateAIGuardUI(){
 // ==== AI INTELLIGENCE LAYER END ====
 
 /* =========================================================
-   â SAFETY FEATURES MODULE (non-invasive)
+   Ã¢ÂÂ SAFETY FEATURES MODULE (non-invasive)
    - Does NOT change signal logic (direction decision stays the same)
    - Only adds extra "allow/block" gates + trade management (optional)
 ========================================================= */
@@ -1557,7 +1365,7 @@ function _getClosedCandles(){
   return appState.chart?.closedCandles || [];
 }
 
-/* â Volatility Guard: blocks dead market + spike conditions */
+/* Ã¢ÂÂ Volatility Guard: blocks dead market + spike conditions */
 function passesVolatilityGuard(){
   if (!appState.volGuard?.enabled) return true;
   const candles = _getClosedCandles();
@@ -1598,7 +1406,7 @@ function passesVolatilityGuard(){
   return true;
 }
 
-/* â Candle Structure Checks: strong close, wick rejection, optional break+retest */
+/* Ã¢ÂÂ Candle Structure Checks: strong close, wick rejection, optional break+retest */
 function passesCandleStructure(direction){
   if (!appState.candleChecks?.enabled) return true;
   const candles = _getClosedCandles();
@@ -1670,7 +1478,7 @@ function passesCandleStructure(direction){
   return true;
 }
 
-/* â HTF Trend Confirm (optional). Uses ticks_history candles like H4 trend code. */
+/* Ã¢ÂÂ HTF Trend Confirm (optional). Uses ticks_history candles like H4 trend code. */
 function requestHTFCandles(){
   if (!appState.htfConfirm?.enabled) return;
   if (!appState.ws || !appState.isAuthenticated) return;
@@ -1719,7 +1527,7 @@ function htfAllows(direction){
   return true;
 }
 
-/* â Trade Management (optional)
+/* Ã¢ÂÂ Trade Management (optional)
    - Break-even: if profit >= beAt then close if falls back to (0 + buffer)
    - Trailing TP: lock in profit as it rises (soft trailing)
 */
@@ -1972,9 +1780,9 @@ function checkSessionLimitsAndMaybeStop(){
   const pnl = Number(appState.sessionProfit || 0);
 
   if (appState.sessMaxProfit != null && pnl >= appState.sessMaxProfit){
-    appState.sessStopReason = `TP hit (${pnl.toFixed(2)} ÃÂ¢ÃÂÃÂ¥ ${Number(appState.sessMaxProfit).toFixed(2)})`;
+    appState.sessStopReason = `TP hit (${pnl.toFixed(2)} ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¥ ${Number(appState.sessMaxProfit).toFixed(2)})`;
   } else if (appState.sessMaxLoss != null && pnl <= -Math.abs(appState.sessMaxLoss)){
-    appState.sessStopReason = `SL hit (${pnl.toFixed(2)} ÃÂ¢ÃÂÃÂ¤ -${Math.abs(appState.sessMaxLoss).toFixed(2)})`;
+    appState.sessStopReason = `SL hit (${pnl.toFixed(2)} ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¤ -${Math.abs(appState.sessMaxLoss).toFixed(2)})`;
   } else if (appState.sessMaxTrades != null && appState.sessionTrades >= appState.sessMaxTrades){
     appState.sessStopReason = `Max trades hit (${appState.sessionTrades}/${appState.sessMaxTrades})`;
   } else if (appState.sessMaxWins != null && appState.sessionWins >= appState.sessMaxWins){
@@ -2116,10 +1924,22 @@ function setSettingsLock(isLocked){
     dom.stakeInput, dom.durationInput, dom.durationUnitInput,
     dom.tpInput, dom.slInput, dom.maxTradesInput, dom.cooldownInput,
     dom.modeSelect, dom.safeToggle, dom.autoResumeToggle, dom.autoSellToggle,
+    dom.accuToggle, dom.accuSafe, dom.accuTP, dom.accuGrowth,
     dom.sessLimitEnabled, dom.sessMaxProfit, dom.sessMaxLoss, dom.sessMaxTrades, dom.sessMaxWins, dom.sessMaxLosses, dom.sessLimitReset
   ].filter(Boolean);
 
-  list.forEach(el => el.disabled = isLocked);
+    list.forEach(el => {
+    // Some inputs are styled as toggles (sr-only + peer). Disabled is enough, but
+    // Safari can keep focus; force blur on lock.
+    try{ if (isLocked && document.activeElement === el) el.blur(); }catch(_){}
+    el.disabled = isLocked;
+  });
+
+  // Accumulator growth buttons are not native inputs; lock the whole Accu settings box.
+  if (dom.accuSettings){
+    dom.accuSettings.classList.toggle("pointer-events-none", isLocked);
+    dom.accuSettings.classList.toggle("opacity-60", isLocked);
+  }
 
   if (dom.unlockBtn){
     dom.unlockBtn.textContent = isLocked ? "Unlock" : "Lock";
@@ -2147,6 +1967,16 @@ function updateStateFromUI(){
     if (dom.autoTradingToggle) appState.autoTradingEnabled = !!dom.autoTradingToggle.checked;
 
     if (dom.safeToggle) appState.isSafeMode = !!dom.safeToggle.checked;
+
+    // Link bot Safe Mode -> Accumulator Safe Mode when settings are unlocked.
+    // This matches the "safe mode auto-detect" request: turning Safe Mode ON
+    // automatically turns Accu Safe ON (and OFF turns it off) so ACCU entries stay safer.
+    try{
+      if (!appState.isSettingsLocked && appState.accu){
+        appState.accu.safe = !!appState.isSafeMode;
+        if (dom.accuSafe) dom.accuSafe.checked = !!appState.accu.safe;
+      }
+    }catch(_){}
 
     // Session limits (extra safety)
     syncSessionLimitsFromUI();
@@ -2180,7 +2010,7 @@ function loadDefaults(mode){
   appState.useTrendFilter = !!d.trend;
   appState.breakoutStrict = !!d.strict;
 
-  // â Extra guards per mode (safe defaults)
+  // Ã¢ÂÂ Extra guards per mode (safe defaults)
   appState.volGuard.enabled = true;
   appState.candleChecks.enabled = true;
   appState.candleChecks.requireBreakRetest = !!appState.breakoutStrict;
@@ -2190,8 +2020,8 @@ function loadDefaults(mode){
   appState.trend.enabled = appState.useTrendFilter;
   appState.trend.status = appState.trend.enabled ? "LOADING" : "OFF";
 
-  // ÃÂ¢ÃÂÃ
- if we are already connected, refresh H4 trend immediately when switching to MOMENTUM/H4
+  // ÃÂÃÂ¢ÃÂÃÂÃÂ
+// if we are already connected, refresh H4 trend immediately when switching to MOMENTUM/H4
   appState.trend.lastUpdated = 0;
   if (appState.trend.enabled && appState.isAuthenticated) requestH4Candles();
 
@@ -2243,7 +2073,7 @@ function initChart(){
       series = chart.addSeries(LightweightCharts.LineSeries, { priceLineVisible:false, lastValueVisible:true });
     }
     seriesKind = "line";
-    logLine("Chart fallback ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ line series (candles unavailable).");
+    logLine("Chart fallback ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ line series (candles unavailable).");
   }
 
   if (dom.chartStatus) setPill(dom.chartStatus, "READY", "bg-emerald-700 text-white");
@@ -2300,7 +2130,7 @@ function updateSeriesFromTick(price){
     c.close = price;
     try{ series.update(c); }catch(_){}
   } else {
-    /* ÃÂ¢ÃÂÃ
+    /* ÃÂÃÂ¢ÃÂÃÂÃÂ
  PRICE ACTION: finalize previous candle into history */
     if (appState.chart.lastOHLC){
       appState.chart.closedCandles.push({ ...appState.chart.lastOHLC });
@@ -2332,7 +2162,7 @@ function trendClassify(emaFast, emaSlow){
   return "NEUTRAL";
 }
 
-/* ÃÂ¢ÃÂÃ
+/* ÃÂÃÂ¢ÃÂÃÂÃÂ
  FIXED: Proper Deriv candles request uses ticks_history + style:"candles"
    Response comes back as msg_type:"history" with history.candles[] */
 function requestH4Candles(){
@@ -2398,7 +2228,7 @@ function passesBreakoutFilter(direction){
 }
 
 /* =========================================================
-   ÃÂ¢ÃÂÃ
+   ÃÂÃÂ¢ÃÂÃÂÃÂ
  PRICE ACTION FILTER (ALL 3 MODES)
    - Uses real 1s candles from chart aggregator
    - Blocks: doji/weak body, wick traps, fake range breakouts
@@ -2522,7 +2352,7 @@ function updateClustering(price){
 
   if (sameCount >= 3){
     dom.clusterAlert?.classList.remove("hidden");
-    if (dom.clusterText) dom.clusterText.textContent = `Clustering Detected: ${sameCount} repeats in last 5 ticks ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ possible reversal/indecision.`;
+    if (dom.clusterText) dom.clusterText.textContent = `Clustering Detected: ${sameCount} repeats in last 5 ticks ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ possible reversal/indecision.`;
   } else {
     dom.clusterAlert?.classList.add("hidden");
   }
@@ -2533,7 +2363,7 @@ function updateClustering(price){
 ========================================================= */
 function computeConfidence(){
   const buf = appState.tickBuffer;
-  if (buf.length < appState.tickBufferSize) return { score: 0, signal: "WAIT", notes: "Waiting ticksÃÂ¢ÃÂÃÂ¦" };
+  if (buf.length < appState.tickBufferSize) return { score: 0, signal: "WAIT", notes: "Waiting ticksÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¦" };
 
   const first = buf[0];
   const last = buf[buf.length-1];
@@ -2560,7 +2390,7 @@ function computeConfidence(){
   if (dir && score >= 70) signal = (dir === "CALL") ? "BUY" : "SELL";
   else if (dir && score >= 45) signal = "WATCH";
 
-  const notes = `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ=${delta.toFixed(4)} | Mode=${appState.mode} | Trend=${appState.trend.enabled ? appState.trend.status : "OFF"} | Breakout=${breakoutOk ? "OK" : "WAIT"}`;
+  const notes = `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ=${delta.toFixed(4)} | Mode=${appState.mode} | Trend=${appState.trend.enabled ? appState.trend.status : "OFF"} | Breakout=${breakoutOk ? "OK" : "WAIT"}`;
   return { score, signal, notes };
 }
 
@@ -2661,13 +2491,6 @@ function stopBot(){
 function startBot(){
   if (appState.isBotRunning) return;
 
-  // Hard gate: website lock overlay must be unlocked first
-  if (!window.__kmUnlocked){
-    updateTradeStatus("ACCESS DENIED", "bg-red-600 text-white");
-    logLine("Access denied: lock screen active.");
-    return;
-  }
-
   const pw = (dom.pwInput?.value || "").trim();
   if (pw !== REQUIRED_PASSWORD){
     dom.pwError?.classList.remove("hidden");
@@ -2703,8 +2526,8 @@ function startBot(){
   appState.chart.hasTick = false;
   appState.lastDigits = [];
 
-  // ÃÂ¢ÃÂÃ
- PRICE ACTION: reset candle history on start
+  // ÃÂÃÂ¢ÃÂÃÂÃÂ
+// PRICE ACTION: reset candle history on start
   appState.chart.closedCandles = [];
 
   appState.currentDirection = null;
@@ -2780,8 +2603,8 @@ function handleResponse(res){
       appState.trend.lastUpdated = 0;
       if (appState.trend.enabled){
         appState.trend.status = "LOADING";
-        requestH4Candles(); // ÃÂ¢ÃÂÃ
- now correct request
+        requestH4Candles(); // ÃÂÃÂ¢ÃÂÃÂÃÂ
+// now correct request
       } else {
         appState.trend.status = "OFF";
       }
@@ -2834,7 +2657,7 @@ function handleResponse(res){
       break;
     }
 
-    /* ÃÂ¢ÃÂÃ
+    /* ÃÂÃÂ¢ÃÂÃÂÃÂ
  FIXED: H4 candles now arrive as msg_type:"history" */
     case "history":{
       // H4 trend + optional HTF confirm both use msg_type:"history"
@@ -3053,24 +2876,24 @@ function checkAndEnterTrade(){
     }
   }
 
-  /* ÃÂ¢ÃÂÃ
+  /* ÃÂÃÂ¢ÃÂÃÂÃÂ
  PRICE ACTION GATE (AUTO) */
   if (!passesPriceActionFilter(direction)){
     // block reason already set inside the filter
     return;
   }
 
-  /* â VOLATILITY GUARD (AUTO) */
+  /* Ã¢ÂÂ VOLATILITY GUARD (AUTO) */
   if (!passesVolatilityGuard()){
     return;
   }
 
-  /* â CANDLE STRUCTURE CHECKS (AUTO) */
+  /* Ã¢ÂÂ CANDLE STRUCTURE CHECKS (AUTO) */
   if (!passesCandleStructure(direction)){
     return;
   }
 
-  /* â HTF CONFIRM (OPTIONAL) */
+  /* Ã¢ÂÂ HTF CONFIRM (OPTIONAL) */
   if (appState.htfConfirm?.enabled){
     if (appState.htfConfirm.status === "OFF") requestHTFCandles();
     if (!htfAllows(direction)){
@@ -3126,7 +2949,7 @@ function enterTrade(direction, stake){
   // Build proposal request (ACCU uses growth_rate + optional limit_order.take_profit)
   let req;
   if (appState.accu && appState.accu.enabled){
-    // Safe Mode: cap growth to 1â2%
+    // Safe Mode: cap growth to 1Ã¢ÂÂ2%
     const safe = !!appState.accu.safe;
     const growth = Math.max(0.01, Math.min(0.05, Number(appState.accu.growthRate || 0.01)));
     const growthRate = safe ? Math.min(growth, 0.02) : growth;
@@ -3180,7 +3003,7 @@ function checkProfitAndLoss(contract){
 
   if (!appState.autoSellEnabled) return;
 
-  // â Optional trade management (non-invasive). If it triggers, it sells and returns.
+  // Ã¢ÂÂ Optional trade management (non-invasive). If it triggers, it sells and returns.
   if (appState.currentContractId){
     if (applyTradeManagement(currentProfit)) return;
   }
@@ -3230,31 +3053,31 @@ function fallbackInsight(type){
     const conf = computeConfidence();
     return [
       `Safe Entry Suggestion (Fallback):`,
-      `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Symbol: ${appState.symbol}`,
-      `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Mode: ${appState.mode}`,
-      `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Trend Filter: ${trend}`,
-      `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Momentum: ${dir} | ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ=${delta.toFixed(4)}`,
-      `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Breakout Strict: ${appState.breakoutStrict ? "ON" : "OFF"}`,
-      `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Confidence: ${conf.score}% | Signal: ${conf.signal}`,
+      `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Symbol: ${appState.symbol}`,
+      `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Mode: ${appState.mode}`,
+      `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Trend Filter: ${trend}`,
+      `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Momentum: ${dir} | ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ=${delta.toFixed(4)}`,
+      `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Breakout Strict: ${appState.breakoutStrict ? "ON" : "OFF"}`,
+      `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Confidence: ${conf.score}% | Signal: ${conf.signal}`,
       ``,
       `Suggested Action:`,
-      conf.signal === "BUY" ? "ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ BUY setup is strong (conditions passing)" :
-      conf.signal === "SELL" ? "ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ SELL setup is strong (conditions passing)" :
-      conf.signal === "WATCH" ? "ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ WATCH (signal forming, wait cleaner move)" :
-      "ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ WAIT (not enough confirmation)",
+      conf.signal === "BUY" ? "ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ BUY setup is strong (conditions passing)" :
+      conf.signal === "SELL" ? "ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ SELL setup is strong (conditions passing)" :
+      conf.signal === "WATCH" ? "ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ WATCH (signal forming, wait cleaner move)" :
+      "ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ WAIT (not enough confirmation)",
       ``,
-      `Risk Level: MEDIUM (synthetics move fast ÃÂ¢ÃÂÃÂ keep stake small).`
+      `Risk Level: MEDIUM (synthetics move fast ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ keep stake small).`
     ].join("\n");
   }
 
   return [
     `Risk Check (Fallback):`,
-    `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Stake: $${appState.stakeAmount.toFixed(2)}`,
-    `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ TP: $${appState.tpUSD.toFixed(2)} | SL: $${appState.slUSD.toFixed(2)} (SL sells only if Safe Mode ON)`,
-    `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Duration: ${appState.duration} ${appState.durationUnit}`,
-    `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Cooldown: ${appState.cooldownDuration}s`,
-    `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Auto Trading: ${appState.autoTradingEnabled ? "ON" : "OFF"}`,
-    `ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Session P/L: $${appState.sessionProfit.toFixed(2)} | Loss: $${appState.sessionLoss.toFixed(2)}`
+    `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Stake: $${appState.stakeAmount.toFixed(2)}`,
+    `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ TP: $${appState.tpUSD.toFixed(2)} | SL: $${appState.slUSD.toFixed(2)} (SL sells only if Safe Mode ON)`,
+    `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Duration: ${appState.duration} ${appState.durationUnit}`,
+    `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Cooldown: ${appState.cooldownDuration}s`,
+    `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Auto Trading: ${appState.autoTradingEnabled ? "ON" : "OFF"}`,
+    `ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ Session P/L: $${appState.sessionProfit.toFixed(2)} | Loss: $${appState.sessionLoss.toFixed(2)}`
   ].join("\n");
 }
 
@@ -3312,7 +3135,7 @@ function manualPlaceTrade(mult=1){
     return;
   }
 
-  /* ÃÂ¢ÃÂÃ
+  /* ÃÂÃÂ¢ÃÂÃÂÃÂ
  PRICE ACTION GATE (MANUAL) */
   if (!passesPriceActionFilter(dir)){
     updateTradeStatus("WAIT: price action", "bg-yellow-600 text-white");
@@ -3390,7 +3213,7 @@ function appendUsdQuoteSymbolsToSelect(activeList){
     const sep = document.createElement("option");
     sep.value = sepValue;
     sep.disabled = true;
-    sep.textContent = "ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ USD Markets (Auto) ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ";
+    sep.textContent = "ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ USD Markets (Auto) ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ";
     dom.symbolSelect.appendChild(sep);
     existing.add(sepValue);
   }
@@ -3430,8 +3253,8 @@ function setSymbol(newSymbol){
   appState.chart.lastCandleTime = 0;
   appState.chart.lastOHLC = null;
 
-  // ÃÂ¢ÃÂÃ
- PRICE ACTION: reset candle history on symbol switch
+  // ÃÂÃÂ¢ÃÂÃÂÃÂ
+// PRICE ACTION: reset candle history on symbol switch
   appState.chart.closedCandles = [];
 
   appState.trend.lastUpdated = 0;
@@ -3440,8 +3263,8 @@ function setSymbol(newSymbol){
   if (appState.isAuthenticated){
     subscribeTicks(newSymbol);
 
-    // ÃÂ¢ÃÂÃ
- refresh trend candles for the NEW symbol
+    // ÃÂÃÂ¢ÃÂÃÂÃÂ
+// refresh trend candles for the NEW symbol
     if (appState.trend.enabled) requestH4Candles();
 
     logLine("Symbol switched to: " + newSymbol);
@@ -3457,131 +3280,77 @@ function setSymbol(newSymbol){
 document.addEventListener("DOMContentLoaded", () => {
   try{
     // =========================
-    // KutMilzAi Lock Overlay wiring
-    // =========================
-    window.__kmUnlocked = false;
-
-    const overlay = $("km-lock-overlay");
-    const tIn = $("km-pass-token");
-    const pIn = $("km-pass-pw");
-    const remember = $("km-remember");
-    const btn = $("km-unlock-btn");
-    const err = $("km-lock-error");
-    const showBtn = $("km-pass-show");
-
-    function setLocked(locked){
-      if (locked){
-        document.body.classList.add("km-locked");
-        if (overlay) overlay.style.display = "flex";
-        window.__kmUnlocked = false;
-      } else {
-        document.body.classList.remove("km-locked");
-        if (overlay) overlay.style.display = "none";
-        window.__kmUnlocked = true;
-      }
-    }
-
-    function isRemembered(){
-      try{
-        if (localStorage.getItem("km_lock_ok") === "1") return true;
-        if (sessionStorage.getItem("km_lock_ok") === "1") return true;
-      } catch(_){}
-      return false;
-    }
-
-    function rememberOk(persist){
-      try{
-        if (persist){
-          localStorage.setItem("km_lock_ok", "1");
-        } else {
-          sessionStorage.setItem("km_lock_ok", "1");
-          localStorage.removeItem("km_lock_ok");
-        }
-      } catch(_){}
-    }
-
-    function showError(){
-      if (err) err.classList.remove("hidden");
-      try{ navigator.vibrate?.(80); }catch(_){}
-    }
-    function clearError(){
-      if (err) err.classList.add("hidden");
-    }
-
-    function attemptUnlock(){
-      // Robust iOS/Safari-safe compare (autofill sometimes adds hidden chars/spaces)
-      const clean = (v) => (v || "")
-        .replace(/[\u200B\u200C\u200D\uFEFF]/g, "")   // zero-width chars
-        .replace(/\s+/g, " ")
-        .trim();
-
-      const tokenValRaw = clean(tIn?.value);
-      const passValRaw  = clean(pIn?.value);
-
-      // Token is treated case-insensitive (password stays exact)
-      const tokenOk = tokenValRaw.toLowerCase() === String(KM_LOCK_TOKEN).toLowerCase();
-      const passOk  = passValRaw === String(KM_LOCK_PASSWORD);
-
-      if (tokenOk && passOk){
-        clearError();
-        rememberOk(!!remember?.checked);
-        setLocked(false);
-        logLine("Lock screen unlocked.");
-      } else {
-        showError();
-        logLine("Access declined: lock screen credentials incorrect.");
-      }
-    }
-
-    }
-
-    // init lock state
-    if (overlay){
-      // Prevent any accidental dismiss
-      overlay.addEventListener("click", (e) => {
-        // keep clicks inside card only
-        if (e.target === overlay) showError();
-      });
-    }
-
-    if (showBtn && pIn){
-      showBtn.addEventListener("click", () => {
-        const isPw = pIn.type === "password";
-        pIn.type = isPw ? "text" : "password";
-        showBtn.textContent = isPw ? "Hide" : "Show";
-      });
-    }
-
-    if (btn) btn.addEventListener("click", attemptUnlock);
-    // iOS/Safari extra: ensure Unlock always fires
-    if (btn){
-      btn.onclick = attemptUnlock;
-      btn.addEventListener("touchend", (e)=>{ e.preventDefault(); attemptUnlock(); }, {passive:false});
-      btn.addEventListener("pointerup", (e)=>{ try{ e.preventDefault(); }catch(_){ } attemptUnlock(); });
-    }
-
-    // Enter key unlock
-    [tIn, pIn].forEach(el => {
-      if (!el) return;
-      el.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") attemptUnlock();
-      });
-    });
-
-    // lock remembered -> skip
-    if (isRemembered()){
-      setLocked(false);
-    } else {
-      setLocked(true);
-    }
-
-    // =========================
     // Continue normal app init
     // =========================
     initChart();
 
     loadDefaults(appState.mode);
     setSettingsLock(true);
+
+    // =========================
+    // UI wiring (Unlock + ACCU)
+    // =========================
+    if (dom.unlockBtn){
+      dom.unlockBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        setSettingsLock(!appState.isSettingsLocked);
+        updateUI();
+        logLine(`Settings ${appState.isSettingsLocked ? "LOCKED" : "UNLOCKED"}`);
+      }, { passive:false });
+    }
+
+    // Accumulator master toggle
+    if (dom.accuToggle){
+      dom.accuToggle.addEventListener("change", () => {
+        appState.accu.enabled = !!dom.accuToggle.checked;
+        updateUI();
+        logLine(`Accumulator: ${appState.accu.enabled ? "ON" : "OFF"}`);
+      });
+    }
+
+    // Accumulator Safe Mode
+    if (dom.accuSafe){
+      dom.accuSafe.addEventListener("change", () => {
+        appState.accu.safe = !!dom.accuSafe.checked;
+        updateUI();
+      });
+    }
+
+    // Growth rate selector (dropdown)
+    if (dom.accuGrowth){
+      dom.accuGrowth.addEventListener("change", () => {
+        const v = Number(dom.accuGrowth.value);
+        if (Number.isFinite(v) && v > 0){
+          appState.accu.growthRate = v;
+          updateUI();
+          logLine(`ACCU Growth: ${(v*100).toFixed(0)}%`);
+        }
+      });
+    }
+
+    // Growth rate quick buttons (1%..5%)
+    document.querySelectorAll("[data-accu-growth]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const v = Number(btn.getAttribute("data-accu-growth"));
+        if (Number.isFinite(v) && v > 0){
+          appState.accu.growthRate = v;
+          if (dom.accuGrowth) dom.accuGrowth.value = String(v);
+          updateUI();
+          logLine(`ACCU Growth: ${(v*100).toFixed(0)}%`);
+        }
+      });
+    });
+
+    // Optional Auto-sell TP for ACCU (leave empty for no TP)
+    if (dom.accuTP){
+      dom.accuTP.addEventListener("change", () => {
+        const raw = String(dom.accuTP.value || "").trim();
+        const v = raw === "" ? null : Number(raw);
+        appState.accu.takeProfit = (v === null || !Number.isFinite(v) || v <= 0) ? null : v;
+        updateUI();
+      });
+    }
+
     // Session limits init
     if (dom.sessLimitEnabled){
       dom.sessLimitEnabled.checked = !!appState.sessLimitsEnabled;
@@ -3618,6 +3387,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (dom.symbolSelect) dom.symbolSelect.value = appState.symbol;
 
     document.querySelectorAll("input, select").forEach(el => {
+      // IMPORTANT: Accumulator controls have their own handlers. If we bind the generic
+      // updateStateFromUI first, iOS/Safari will "snap back" the toggle before our
+      // accumulator handler runs. So we skip them here.
+      const skipIds = new Set(["accu-toggle","accu-safe","accu-growth","accu-tp"]);
+      if (el && el.id && skipIds.has(el.id)) return;
+
       el.addEventListener("input", updateStateFromUI);
       el.addEventListener("change", updateStateFromUI);
     });
@@ -3634,8 +3409,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (appState.isBotRunning) stopBot();
       else startBot();
     });
-
-    dom.unlockBtn?.addEventListener("click", () => setSettingsLock(!appState.isSettingsLocked));
     dom.modeSelect?.addEventListener("change", (e) => loadDefaults(e.target.value));
 
     dom.safeToggle?.addEventListener("change", () => updateStateFromUI());
@@ -3674,7 +3447,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     dom.accuSafe?.addEventListener("change", (e) => {
       appState.accu.safe = !!e.target.checked;
-      // if safe is ON, clamp growth to 1â2%
+      // if safe is ON, clamp growth to 1Ã¢ÂÂ2%
       if (appState.accu.safe && appState.accu.growthRate > 0.02){
         appState.accu.growthRate = 0.02;
       }
@@ -3769,7 +3542,6 @@ dom.clearLogBtn?.addEventListener("click", () => { if (LOG) LOG.textContent = ""
   }catch(e){
     logLine("Init error: " + e.message);
   }
-});
-</script>
+});</script>
 </body>
 </html>
