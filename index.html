@@ -3509,10 +3509,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function attemptUnlock(){
-      const tokenVal = (tIn?.value || "").trim();
-      const passVal  = (pIn?.value || "").trim();
+      // Robust iOS/Safari-safe compare (autofill sometimes adds hidden chars/spaces)
+      const clean = (v) => (v || "")
+        .replace(/[\u200B\u200C\u200D\uFEFF]/g, "")   // zero-width chars
+        .replace(/\s+/g, " ")
+        .trim();
 
-      if (tokenVal === KM_LOCK_TOKEN && passVal === KM_LOCK_PASSWORD){
+      const tokenValRaw = clean(tIn?.value);
+      const passValRaw  = clean(pIn?.value);
+
+      // Token is treated case-insensitive (password stays exact)
+      const tokenOk = tokenValRaw.toLowerCase() === String(KM_LOCK_TOKEN).toLowerCase();
+      const passOk  = passValRaw === String(KM_LOCK_PASSWORD);
+
+      if (tokenOk && passOk){
         clearError();
         rememberOk(!!remember?.checked);
         setLocked(false);
@@ -3521,6 +3531,8 @@ document.addEventListener("DOMContentLoaded", () => {
         showError();
         logLine("Access declined: lock screen credentials incorrect.");
       }
+    }
+
     }
 
     // init lock state
