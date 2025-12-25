@@ -787,6 +787,24 @@ button, .btn{
             Safe Mode is currently DISABLED.
           </div>
 
+
+          <div class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center">
+              <span class="text-sm font-medium text-slate-300 mr-4">Price Action Filter:</span>
+              <span id="price-action-indicator" class="pill bg-emerald-600 text-white">ON</span>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="price-action-toggle" class="sr-only peer" disabled checked>
+              <div class="w-11 h-6 bg-slate-500 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer
+                peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px]
+                after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
+            </label>
+          </div>
+
+          <div class="text-center text-xs text-slate-500" id="price-action-status">
+            Price Action Filter is currently ENABLED.
+          </div>
+
           <div class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
             <div class="flex flex-col sm:flex-row sm:items-center">
               <span class="text-sm font-medium text-slate-300 mr-4">Auto-resume after cooldown:</span>
@@ -1609,6 +1627,11 @@ const dom = {
   safeIndicator: $("safe-mode-indicator"),
   safeStatus: $("safe-mode-status"),
 
+  priceActionToggle: $("price-action-toggle"),
+  priceActionIndicator: $("price-action-indicator"),
+  priceActionStatus: $("price-action-status"),
+
+
   autoResumeToggle: $("autoresume-toggle"),
   autoResumeIndicator: $("autoresume-indicator"),
   autoSellToggle: $("autosell-toggle"),
@@ -1841,6 +1864,19 @@ function updateUI(){
       : "Safe Mode is DISABLED.";
   }
 
+  if (dom.priceActionToggle && appState.candleChecks){
+    dom.priceActionToggle.checked = !!appState.candleChecks.enabled;
+  }
+  if (dom.priceActionIndicator){
+    const on = !!(appState.candleChecks && appState.candleChecks.enabled);
+    dom.priceActionIndicator.textContent = on ? "ON" : "OFF";
+    dom.priceActionIndicator.className = `pill ${on ? "bg-emerald-600" : "bg-red-600"} text-white`;
+  }
+  if (dom.priceActionStatus){
+    const on = !!(appState.candleChecks && appState.candleChecks.enabled);
+    dom.priceActionStatus.textContent = on ? "Price Action Filter is ENABLED." : "Price Action Filter is DISABLED.";
+  }
+
   setIfNotEditing(dom.stakeInput, appState.stakeAmount.toFixed(2));
   setIfNotEditing(dom.durationInput, String(appState.duration));
   if (dom.durationUnitInput && document.activeElement !== dom.durationUnitInput) dom.durationUnitInput.value = appState.durationUnit;
@@ -1923,7 +1959,7 @@ function setSettingsLock(isLocked){
   const list = [
     dom.stakeInput, dom.durationInput, dom.durationUnitInput,
     dom.tpInput, dom.slInput, dom.maxTradesInput, dom.cooldownInput,
-    dom.modeSelect, dom.safeToggle, dom.autoResumeToggle, dom.autoSellToggle,
+    dom.modeSelect, dom.safeToggle, dom.priceActionToggle, dom.autoResumeToggle, dom.autoSellToggle,
     dom.accuToggle, dom.accuSafe, dom.accuTP, dom.accuGrowth,
     dom.sessLimitEnabled, dom.sessMaxProfit, dom.sessMaxLoss, dom.sessMaxTrades, dom.sessMaxWins, dom.sessMaxLosses, dom.sessLimitReset
   ].filter(Boolean);
@@ -1967,6 +2003,8 @@ function updateStateFromUI(){
     if (dom.autoTradingToggle) appState.autoTradingEnabled = !!dom.autoTradingToggle.checked;
 
     if (dom.safeToggle) appState.isSafeMode = !!dom.safeToggle.checked;
+
+    if (dom.priceActionToggle && appState.candleChecks) appState.candleChecks.enabled = !!dom.priceActionToggle.checked;
 
     // Link bot Safe Mode -> Accumulator Safe Mode when settings are unlocked.
     // This matches the "safe mode auto-detect" request: turning Safe Mode ON
@@ -3414,6 +3452,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dom.safeToggle?.addEventListener("change", () => updateStateFromUI());
     dom.autoResumeToggle?.addEventListener("change", () => updateStateFromUI());
     dom.autoSellToggle?.addEventListener("change", () => updateStateFromUI());
+    dom.priceActionToggle?.addEventListener("change", () => updateStateFromUI());
 
     dom.toggleVisibilityBtn?.addEventListener("click", toggleTokenVisibility);
     dom.copyApiUrlBtn?.addEventListener("click", copyApiUrl);
